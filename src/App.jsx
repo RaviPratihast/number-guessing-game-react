@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "./App.css";
-
 function GuessMyNumber() {
   const [secretNumber, setSecretNumber] = useState(
     Math.trunc(Math.random() * 20) + 1
@@ -12,33 +11,52 @@ function GuessMyNumber() {
 
   const handleCheck = () => {
     const guessedNumber = Number(guess);
+
     if (!guessedNumber) {
-      setMessage("Enter a valid number");
+      setMessage("Enter a Input");
     } else if (guessedNumber === secretNumber) {
       setMessage("😀 Yayy!!!.....Correct Answer");
       if (score > highScore) {
         setHighScore(score);
-        document.body.style.backgroundColor = "#22c55e";
-      } else {
+      }
+      document.body.style.backgroundColor = "#22c55e";
+    } else if (guessedNumber !== secretNumber) {
+      if (score > 1) {
         setMessage(
           guessedNumber > secretNumber
             ? "📈 😄 Guess is too High"
-            : "📉 😄 Guess is too Low"
+            : "📉 😄 Guess is too low"
         );
         setScore(score - 1);
+      } else {
+        setMessage("😭 You Loose!!");
+        setScore(0);
+        document.body.style.backgroundColor = "#ef4444";
       }
     }
+  };
+
+  const handleReset = () => {
+    setSecretNumber(Math.trunc(Math.random() * 20) + 1);
+    setGuess("");
+    setScore(20);
+    setMessage("🤔 Start guessing...");
+    document.body.style.backgroundColor = "#222";
   };
 
   return (
     <div>
       <header>
         <div className="btn-between">
-          <button className="btn again">Play Again</button>
+          <button className="btn again" onClick={handleReset}>
+            Play Again
+          </button>
           <p className="between">(Between 1 and 20)</p>
         </div>
         <h1>Guess My Number</h1>
-        <div className="number">?</div>
+        <div className="number">
+          {score === 0 || message.includes("Correct") ? secretNumber : "?"}
+        </div>
       </header>
 
       <main>
@@ -47,7 +65,7 @@ function GuessMyNumber() {
             type="number"
             className="guess"
             value={guess}
-            onChange={(event) => setGuess(event.target.value)}
+            onChange={(e) => setGuess(e.target.value)}
           />
           <button className="btn check" onClick={handleCheck}>
             Check!
@@ -55,12 +73,12 @@ function GuessMyNumber() {
         </section>
 
         <section className="right">
-          <p className="message">🤔 Start guessing...</p>
+          <p className="message">{message}</p>
           <p className="label-score">
-            Score: <span className="score">20</span>
+            Score: <span className="score">{score}</span>
           </p>
           <p className="label-highscore">
-            High Score: <span className="high-score">0</span>
+            High Score: <span className="high-score">{highScore}</span>
           </p>
         </section>
       </main>
