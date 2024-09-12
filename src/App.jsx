@@ -1,35 +1,35 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// import './App.css'
+import "./App.css";
 
-// function App() {
-//   const [count, setCount] = useState(0)
+function GuessMyNumber() {
+  return (
+    <div>
+      <header>
+        <div className="btn-between">
+          <button className="btn again">Play Again</button>
+          <p className="between">(Between 1 and 20)</p>
+        </div>
+        <h1>Guess My Number</h1>
+        <div className="number">?</div>
+      </header>
 
-//   return (
-//     <>
-//       <div>
-//         <a href="https://vitejs.dev" target="_blank">
-//           <img src={viteLogo} className="logo" alt="Vite logo" />
-//         </a>
-//         <a href="https://react.dev" target="_blank">
-//           <img src={reactLogo} className="logo react" alt="React logo" />
-//         </a>
-//       </div>
-//       <h1>Vite + React</h1>
-//       <div className="card">
-//         <button onClick={() => setCount((count) => count + 1)}>
-//           count is {count}
-//         </button>
-//         <p>
-//           Edit <code>src/App.jsx</code> and save to test HMR
-//         </p>
-//       </div>
-//       <p className="read-the-docs">
-//         Click on the Vite and React logos to learn more
-//       </p>
-//     </>
-//   )
-// }
+      <main>
+        <section className="left">
+          <input type="number" className="guess" />
+          <button className="btn check">Check!</button>
+        </section>
 
-// export default App
+        <section className="right">
+          <p className="message">🤔 Start guessing...</p>
+          <p className="label-score">
+            Score: <span className="score">20</span>
+          </p>
+          <p className="label-highscore">
+            High Score: <span className="high-score">0</span>
+          </p>
+        </section>
+      </main>
+    </div>
+  );
+}
+
+export default GuessMyNumber;
