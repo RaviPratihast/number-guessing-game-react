@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Confetti from "react-confetti";
 import "./GuessMyNumber.css";
 function GuessMyNumber() {
@@ -11,6 +11,13 @@ function GuessMyNumber() {
   const [message, setMessage] = useState("🤔 Start guessing...");
   const [isCelebrating, setIsCelebrating] = useState(false);
 
+  useEffect(() => {
+    const storedHighScore = localStorage.getItem("highScore");
+    if (storedHighScore) {
+      setHighScore(Number(storedHighScore));
+    }
+  }, []);
+
   const handleCheck = () => {
     const guessedNumber = Number(guess);
 
@@ -20,6 +27,7 @@ function GuessMyNumber() {
       setMessage("😀 Yayy!!!.....Correct Answer");
       if (score > highScore) {
         setHighScore(score);
+        localStorage.setItem("highScore", score);
       }
       setIsCelebrating(true);
       document.body.style.backgroundColor = "#22c55e";
@@ -52,6 +60,7 @@ function GuessMyNumber() {
 
   return (
     <div>
+      {isCelebrating && <Confetti />}
       <header>
         <div className="btn-between">
           <button className="btn again" onClick={handleReset}>
