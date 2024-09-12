@@ -1,6 +1,14 @@
+import { useState } from "react";
 import "./App.css";
 
 function GuessMyNumber() {
+  const [secretNumber, setSecretNumber] = useState(
+    Math.trunc(Math.random() * 20) + 1
+  );
+  const [guess, setGuess] = useState("");
+  const [score, setScore] = useState(20);
+  const [highScore, setHighScore] = useState(0);
+  const [message, setMessage] = useState("🤔 Start guessing...");
   return (
     <div>
       <header>
