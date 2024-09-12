@@ -9,6 +9,27 @@ function GuessMyNumber() {
   const [score, setScore] = useState(20);
   const [highScore, setHighScore] = useState(0);
   const [message, setMessage] = useState("🤔 Start guessing...");
+
+  const handleCheck = () => {
+    const guessedNumber = Number(guess);
+    if (!guessedNumber) {
+      setMessage("Enter a valid number");
+    } else if (guessedNumber === secretNumber) {
+      setMessage("😀 Yayy!!!.....Correct Answer");
+      if (score > highScore) {
+        setHighScore(score);
+        document.body.style.backgroundColor = "#22c55e";
+      } else {
+        setMessage(
+          guessedNumber > secretNumber
+            ? "📈 😄 Guess is too High"
+            : "📉 😄 Guess is too Low"
+        );
+        setScore(score - 1);
+      }
+    }
+  };
+
   return (
     <div>
       <header>
@@ -28,7 +49,9 @@ function GuessMyNumber() {
             value={guess}
             onChange={(event) => setGuess(event.target.value)}
           />
-          <button className="btn check">Check!</button>
+          <button className="btn check" onClick={handleCheck}>
+            Check!
+          </button>
         </section>
 
         <section className="right">
