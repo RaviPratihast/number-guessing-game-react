@@ -22,7 +22,12 @@ function GuessMyNumber() {
 
       <main>
         <section className="left">
-          <input type="number" className="guess" />
+          <input
+            type="number"
+            className="guess"
+            value={guess}
+            onChange={(event) => setGuess(event.target.value)}
+          />
           <button className="btn check">Check!</button>
         </section>
 
