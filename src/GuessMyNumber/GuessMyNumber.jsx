@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Confetti from "react-confetti";
+
 import "./GuessMyNumber.css";
 function GuessMyNumber() {
   const [secretNumber, setSecretNumber] = useState(
@@ -9,6 +10,7 @@ function GuessMyNumber() {
   const [score, setScore] = useState(20);
   const [highScore, setHighScore] = useState(0);
   const [message, setMessage] = useState("🤔 Start guessing...");
+
   const [isCelebrating, setIsCelebrating] = useState(false);
 
   useEffect(() => {
@@ -24,12 +26,18 @@ function GuessMyNumber() {
     if (!guessedNumber) {
       setMessage("Enter a Input");
     } else if (guessedNumber === secretNumber) {
-      setMessage("😀 Yayy!!!.....Correct Answer");
-      if (score > highScore) {
+      if (score > highScore && highScore === 0) {
         setHighScore(score);
         localStorage.setItem("highScore", score);
+        setMessage("😀 Yayy!!!.....Correct Answer,you have set a highscore");
+        // setIsCelebrating(true);
+      } else if (score > highScore && highScore !== 0) {
+        setHighScore(score);
+        localStorage.setItem("highScore", score);
+        setMessage("😀 Yayy!!!.....Correct Answer,you have beat the highscore");
+        setIsCelebrating(true);
       }
-      setIsCelebrating(true);
+
       document.body.style.backgroundColor = "#22c55e";
     } else if (guessedNumber !== secretNumber) {
       if (score > 1) {
@@ -44,9 +52,20 @@ function GuessMyNumber() {
       } else {
         setMessage("😭 You Loose!!");
         setScore(0);
+
         document.body.style.backgroundColor = "#ef4444";
       }
     }
+  };
+  const handlePlayAgain = () => {
+    setSecretNumber(Math.trunc(Math.random() * 20) + 1);
+    setGuess("");
+    setScore(20);
+    setMessage("🤔 Start guessing...");
+    setIsCelebrating(false);
+    // localStorage.removeItem("highScore");
+    // setHighScore(0);
+    document.body.style.backgroundColor = "#222";
   };
 
   const handleReset = () => {
@@ -55,6 +74,8 @@ function GuessMyNumber() {
     setScore(20);
     setMessage("🤔 Start guessing...");
     setIsCelebrating(false);
+    localStorage.removeItem("highScore");
+    setHighScore(0);
     document.body.style.backgroundColor = "#222";
   };
 
@@ -63,14 +84,18 @@ function GuessMyNumber() {
       {isCelebrating && <Confetti />}
       <header>
         <div className="btn-between">
-          <button className="btn again" onClick={handleReset}>
+          <button className="btn again" onClick={handlePlayAgain}>
             Play Again
+          </button>
+          <button className="btn again" onClick={handleReset}>
+            Reset Game
           </button>
           <p className="between">(Between 1 and 20)</p>
         </div>
         <h1>Guess My Number</h1>
         <div className="number">
-          {score === 0 || message.includes("Correct") ? secretNumber : "?"}
+          {/* {score === 0 || message.includes("Correct") ? secretNumber : "?"} */}
+          {secretNumber}
         </div>
       </header>
 
