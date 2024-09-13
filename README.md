@@ -1,5 +1,5 @@
 
-# Guess My Number Gamer
+# Guess My Number Game
 
 The Guess My Number Game is an interactive web application built with React.js. The game challenges players to guess a randomly generated number while tracking their scores and high scores. 
 
