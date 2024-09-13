@@ -4,7 +4,6 @@ import { useAuth } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import Confetti from "react-confetti";
 import Button from "../Component/Button/Button";
-
 import "./GuessMyNumber.css";
 
 function GuessMyNumber() {
