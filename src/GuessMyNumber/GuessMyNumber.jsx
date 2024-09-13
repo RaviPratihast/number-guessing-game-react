@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
+import { useAuth } from "../Context/AuthContext";
+import { useNavigate } from "react-router-dom";
 import Confetti from "react-confetti";
 
 import "./GuessMyNumber.css";
 function GuessMyNumber() {
+  const { stateAuth } = useAuth();
+  const navigate = useNavigate();
   const [secretNumber, setSecretNumber] = useState(
     Math.trunc(Math.random() * 20) + 1
   );
@@ -21,40 +25,43 @@ function GuessMyNumber() {
   }, []);
 
   const handleCheck = () => {
-    const guessedNumber = Number(guess);
+    if (stateAuth.loggedIn) {
+      const guessedNumber = Number(guess);
 
-    if (!guessedNumber) {
-      setMessage("Enter a Input");
-    } else if (guessedNumber === secretNumber) {
-      if (score > highScore && highScore === 0) {
-        setHighScore(score);
-        localStorage.setItem("highScore", score);
-        setMessage("😀 Yayy!!!.....Correct Answer,you have set a highscore");
-        // setIsCelebrating(true);
-      } else if (score > highScore && highScore !== 0) {
-        setHighScore(score);
-        localStorage.setItem("highScore", score);
-        setMessage("😀 Yayy!!!.....Correct Answer,you have beat the highscore");
-        
+      if (!guessedNumber) {
+        setMessage("Enter a valid number!");
+      } else if (guessedNumber === secretNumber) {
+        if (score > highScore && highScore === 0) {
+          setHighScore(score);
+          localStorage.setItem("highScore", score);
+          setMessage("😀 Yayy!!! Correct Answer! You've set a new high score!");
+        } else if (score > highScore && highScore !== 0) {
+          setMessage(
+            "😀 Yayy!!! Correct Answer! You've beat the previous high score!"
+          );
+          setIsCelebrating(true);
+        } else {
+          setMessage("😀 Yayy!!! Correct Answer!");
+        }
+
+        document.body.style.backgroundColor = "#22c55e";
+      } else if (guessedNumber !== secretNumber) {
+        if (score > 1) {
+          setMessage(
+            guessedNumber > secretNumber
+              ? "📈 😄 Guess is too High"
+              : "📉 😄 Guess is too low"
+          );
+          setScore(score - 1);
+          setGuess("");
+        } else {
+          setMessage("😭 You Lose!!");
+          setScore(0);
+          document.body.style.backgroundColor = "#ef4444";
+        }
       }
-
-      document.body.style.backgroundColor = "#22c55e";
-    } else if (guessedNumber !== secretNumber) {
-      if (score > 1) {
-        setMessage(
-          guessedNumber > secretNumber
-            ? "📈 😄 Guess is too High"
-            : "📉 😄 Guess is too low"
-        );
-
-        setScore(score - 1);
-        setGuess("");
-      } else {
-        setMessage("😭 You Loose!!");
-        setScore(0);
-
-        document.body.style.backgroundColor = "#ef4444";
-      }
+    } else {
+      navigate("/login");
     }
   };
   const handlePlayAgain = () => {
