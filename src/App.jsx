@@ -1,10 +1,17 @@
+import { Routes, Route } from "react-router-dom";
 import GuessMyNumber from "./GuessMyNumber/GuessMyNumber";
+import Login from "./LoginPage/Login";
+
 import "./App.css";
 
 const App = () => {
   return (
     <>
-      <GuessMyNumber />
+      {/* <GuessMyNumber /> */}
+      <Routes>
+        <Route path="/" element={<GuessMyNumber />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
     </>
   );
 };

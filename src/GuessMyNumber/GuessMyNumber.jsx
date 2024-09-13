@@ -35,7 +35,7 @@ function GuessMyNumber() {
         setHighScore(score);
         localStorage.setItem("highScore", score);
         setMessage("😀 Yayy!!!.....Correct Answer,you have beat the highscore");
-        setIsCelebrating(true);
+        
       }
 
       document.body.style.backgroundColor = "#22c55e";
