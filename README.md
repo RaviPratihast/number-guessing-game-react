@@ -26,16 +26,6 @@ The Guess My Number Game is an interactive web application built with React.js. 
 ## 5. Deployment
 - The frontend is deployed on Netlify for easy access and sharing.
 
-# Tech Stack
-
-- ReactJS
-- State Management: React Hooks (useState,useReducer,useContext)
-- Styling : CSS
-- Deployment: Netlify
-
-
-
-
 # Run Locally
 
 ## Clone the repository
@@ -57,4 +47,14 @@ The Guess My Number Game is an interactive web application built with React.js. 
 ```bash
   npm run dev
 ```
+
+
+# Tech Stack
+
+- ReactJS
+- State Management: React Hooks (useState,useReducer,useContext)
+- Styling : CSS
+- Deployment: Netlify
+
+
 
