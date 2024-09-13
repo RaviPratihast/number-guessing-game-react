@@ -31,7 +31,7 @@ const Login = () => {
   }
   return (
     <>
-      <h1 className="heading-text">Number Guessing Gamer</h1>
+      <h1 className="heading-text">Number Guessing Game</h1>
       <div className="login-container">
         <h2>Log In</h2>
         <div className="input-container">
