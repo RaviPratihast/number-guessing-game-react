@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../Context/AuthContext";
 import { useNavigate, useLocation } from "react-router-dom";
-
 import "./login.css";
 const Login = () => {
   const [user, setUser] = useState("");
@@ -50,8 +49,14 @@ const Login = () => {
           />
         </div>
         <div className="input-btn-container">
-          <button onClick={handleLogin}>Login</button>
-          <button onClick={handleGuestLogin}>Guest Login</button>
+          <button className="btn-login" onClick={handleLogin}>
+            Login
+          </button>
+          <button className="btn-login" onClick={handleGuestLogin}>
+            Guest Login
+          </button>
+          {/* <Button onClick={handleLogin}>Login</Button>
+          <Button onClick={handleGuestLogin}>Guest Login</Button> */}
         </div>
       </div>
     </>
