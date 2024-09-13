@@ -1,9 +1,12 @@
+// GuessMyNumber.js
 import { useState, useEffect } from "react";
 import { useAuth } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import Confetti from "react-confetti";
+import Button from "../Component/Button/Button";
 
 import "./GuessMyNumber.css";
+
 function GuessMyNumber() {
   const { stateAuth } = useAuth();
   const navigate = useNavigate();
@@ -14,7 +17,6 @@ function GuessMyNumber() {
   const [score, setScore] = useState(20);
   const [highScore, setHighScore] = useState(0);
   const [message, setMessage] = useState("🤔 Start guessing...");
-
   const [isCelebrating, setIsCelebrating] = useState(false);
 
   useEffect(() => {
@@ -31,19 +33,16 @@ function GuessMyNumber() {
       if (!guessedNumber) {
         setMessage("Enter a valid number!");
       } else if (guessedNumber === secretNumber) {
-        if (score > highScore && highScore === 0) {
+        if (score > highScore) {
           setHighScore(score);
           localStorage.setItem("highScore", score);
           setMessage("😀 Yayy!!! Correct Answer! You've set a new high score!");
-        } else if (score > highScore && highScore !== 0) {
-          setMessage(
-            "😀 Yayy!!! Correct Answer! You've beat the previous high score!"
-          );
-          setIsCelebrating(true);
         } else {
           setMessage("😀 Yayy!!! Correct Answer!");
+          if (score > highScore) {
+            setIsCelebrating(true);
+          }
         }
-
         document.body.style.backgroundColor = "#22c55e";
       } else if (guessedNumber !== secretNumber) {
         if (score > 1) {
@@ -64,6 +63,7 @@ function GuessMyNumber() {
       navigate("/login");
     }
   };
+
   const handlePlayAgain = () => {
     setSecretNumber(Math.trunc(Math.random() * 20) + 1);
     setGuess("");
@@ -89,12 +89,14 @@ function GuessMyNumber() {
       {isCelebrating && <Confetti />}
       <header>
         <div className="btn-between">
-          <button className="btn again" onClick={handlePlayAgain}>
-            Play Again
-          </button>
-          <button className="btn again" onClick={handleReset}>
-            Reset Game
-          </button>
+          <div>
+            <Button className="again" onClick={handlePlayAgain}>
+              Play Again
+            </Button>
+            <Button className="again" onClick={handleReset}>
+              Reset Game
+            </Button>
+          </div>
           <p className="between">(Between 1 and 20)</p>
         </div>
         <h1>Guess My Number</h1>
@@ -111,9 +113,9 @@ function GuessMyNumber() {
             value={guess}
             onChange={(e) => setGuess(e.target.value)}
           />
-          <button className="btn check" onClick={handleCheck}>
+          <Button className="check" onClick={handleCheck}>
             Check!
-          </button>
+          </Button>
         </section>
 
         <section className="right">
