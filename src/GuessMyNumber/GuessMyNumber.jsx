@@ -70,8 +70,6 @@ function GuessMyNumber() {
     setScore(20);
     setMessage("🤔 Start guessing...");
     setIsCelebrating(false);
-    // localStorage.removeItem("highScore");
-    // setHighScore(0);
     document.body.style.backgroundColor = "#222";
   };
 
@@ -101,8 +99,7 @@ function GuessMyNumber() {
         </div>
         <h1>Guess My Number</h1>
         <div className="number">
-          {/* {score === 0 || message.includes("Correct") ? secretNumber : "?"} */}
-          {secretNumber}
+          {score === 0 || message.includes("Correct") ? secretNumber : "?"}
         </div>
       </header>
 
